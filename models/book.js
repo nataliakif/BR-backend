@@ -23,6 +23,15 @@ const bookSchema = Schema({
         enum: ["alreadyRead", "readingNow", "goingToRead"],
         default: "goingToRead"
     },
+    rating: {
+        type: Number,
+        enum: [0, 1, 2, 3, 4, 5],
+        default: 0
+    },
+    resume: {
+        type: String,
+        default:""
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -36,16 +45,19 @@ const joiSchema = Joi.object({
     publicationDate: Joi.number().min(1).required(),
     amountOfPages: Joi.number().min(1).required(),
     status: Joi.string().default("goingToRead").valid("alreadyRead", "readingNow", "goingToRead"),
+    rating: Joi.number().default(0).valid(0, 1, 2, 3, 4, 5),
+    resume: Joi.string().default("")
 });
 
-// const favoriteJoiSchema = Joi.object({
-//     favorite: Joi.bool().required()
-// });
+const reviewJoiSchema = Joi.object({
+    rating: Joi.number().valid(0, 1, 2, 3, 4, 5).required(),
+    resume: Joi.string().default("")
+});
 
 const Book = model("book", bookSchema);
 
 module.exports = {
     Book,
     joiSchema,
-    // favoriteJoiSchema
+    reviewJoiSchema
 }
