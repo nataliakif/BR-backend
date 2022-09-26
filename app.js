@@ -3,8 +3,10 @@ const logger = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
 
+const authRouter = require("./routes/api/users");
 const booksRouter = require('./routes/api/books');
 const planningRouter = require('./routes/api/planning');
+
 
 const app = express();
 
@@ -13,6 +15,9 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+
+app.use("/auth", authRouter);
 
 app.use('/api/books', booksRouter);
 app.use('/api/planning', planningRouter);
@@ -22,7 +27,8 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).json({ message: err.message });
+  const { status = 500, message = "Server error" } = err;
+  res.status(status).json({ message });
 });
 
 module.exports = app;
