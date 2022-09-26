@@ -21,6 +21,7 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+    pagesRead: [{ date: String, time:String, amountOfPages: String }]
   },
   { versionKey: false, timestamps: true }
 );
@@ -32,15 +33,22 @@ const registerSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
   confirmPassword: Joi.string().required().valid(Joi.ref("password")),
+  pagesRead: Joi.array().items(Joi.string())
 });
+
 const loginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
 
+const pagesSchema = Joi.object({
+  pagesRead: Joi.array().items(Joi.string())
+});
+
 const schemas = {
   registerSchema,
   loginSchema,
+  pagesSchema
 };
 
 const User = model("user", userSchema);
