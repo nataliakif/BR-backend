@@ -21,4 +21,8 @@ router.post(
   ctrlWrapper(usersControllers.login)
 );
 router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
+router.get("/google", ctrlWrapper(usersControllers.googleAuth));
+router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
+module.exports = router;
+
 module.exports = router;
