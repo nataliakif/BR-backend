@@ -32,7 +32,7 @@ router.post(
   ctrlWrapper(usersControllers.managePages)
 );
 
-router.get("/", authenticate, ctrlWrapper(usersControllers.getUserInfo));
+router.get("/user", authenticate, ctrlWrapper(usersControllers.getUserInfo));
 module.exports = router;
 
 
