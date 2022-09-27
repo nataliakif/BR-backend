@@ -1,0 +1,303 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger api/docs GoIT project",
+    "description": "showing off swagger-ui-express",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "https://br-backend.herokuapp.com/" }, { "url": "" }],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Books",
+      "description": "Books endpoints"
+    },
+    {
+      "name": "Planning",
+      "description": "Planning endpoints"
+    }
+  ],
+
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+
+          "409": {
+            "description": "Provided email already exists",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+        "requestBody": {
+          "description": "login object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email not verify",
+            "content": {}
+          },
+          "401": {
+            "description": "User email or password is wrong",
+            "content": {}
+          },
+          "404": {
+            "description": "Email not verify",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Logout success",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/verify": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Resend verify user email",
+        "requestBody": {
+          "description": "verify email object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email verify resend",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found user",
+            "content": {}
+          },
+          "400": {
+            "description": "User alredy verify",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/verify/:verificationToken": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Verify user email",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "verificationToken",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email verify success",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found user",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Google authentication. WARNING: Works only for sign-in, after registered on front-end",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoogleResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password", "confirmPassword"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Jhon"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty1234"
+          },
+          "confirmPassword": {
+            "type": "string",
+            "description": "Confirm user's password",
+            "example": "qwerty1234"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "Jhon"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "Verification token email",
+            "format": "email"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "qwerty1234"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "token": {
+            "type": "string",
+            "description": "token authorization",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
+          }
+        }
+      },
+      "VerifyRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          }
+        }
+      },
+      "GoogleResponse": {
+        "type": "object",
+        "required": ["name", "token"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "token": {
+            "type": "string",
+            "description": "token authorization",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
+          }
+        }
+      }
+    }
+  }
+}

@@ -24,6 +24,15 @@ router.post(
 router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
 router.get("/google", ctrlWrapper(usersControllers.googleAuth));
 router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
+router.get(
+  "/verify/:verificationToken",
+  ctrlWrapper(usersControllers.verifyEmail)
+);
+router.post(
+  "/verify",
+  validationBody(schemas.verifyEmailSchema),
+  ctrlWrapper(usersControllers.resendVerifyEmail)
+);
 
 router.post(
   "/pages",
@@ -34,5 +43,3 @@ router.post(
 
 router.get("/", authenticate, ctrlWrapper(usersControllers.getUserInfo));
 module.exports = router;
-
-

@@ -21,7 +21,16 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-    pagesRead: [{ date: String, time:String, amountOfPages: String }]
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, "Verify token is required"],
+    },
+
+    pagesRead: [{ date: String, time: String, amountOfPages: String }],
   },
   { versionKey: false, timestamps: true }
 );
@@ -33,22 +42,27 @@ const registerSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
   confirmPassword: Joi.string().required().valid(Joi.ref("password")),
-  pagesRead: Joi.array().items(Joi.string())
+  pagesRead: Joi.array().items(Joi.string()),
 });
 
 const loginSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
   password: Joi.string().min(6).required(),
 });
+// Joi verifyEmail schema
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
 
 const pagesSchema = Joi.object({
-  pagesRead: Joi.array().items(Joi.string())
+  pagesRead: Joi.array().items(Joi.string()),
 });
 
 const schemas = {
   registerSchema,
   loginSchema,
-  pagesSchema
+  pagesSchema,
+  verifyEmailSchema,
 };
 
 const User = model("user", userSchema);

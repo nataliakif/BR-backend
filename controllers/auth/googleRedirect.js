@@ -1,7 +1,7 @@
 const queryString = require("query-string");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, BASE_URL } = process.env;
 const { User } = require("../../models/user");
 
 const googleRedirect = async (req, res) => {
@@ -51,12 +51,13 @@ const googleRedirect = async (req, res) => {
   return res
     .status(200)
     .json({
+      status: "success",
       code: 200,
       data: {
         email,
         token,
       },
     })
-    .redirect(`${process.env.BASE_URL}?accessToken=${token}`);
+    .redirect(`${BASE_URL}?accessToken=${token}`);
 };
 module.exports = googleRedirect;
