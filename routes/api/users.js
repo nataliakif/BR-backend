@@ -6,7 +6,7 @@ const { ctrlWrapper } = require("../../helpers");
 
 const { usersControllers } = require("../../controllers");
 
-const { validationBody, authenticate, validation } = require("../../middlewares");
+const { validationBody, authenticate } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -25,7 +25,14 @@ router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
 router.get("/google", ctrlWrapper(usersControllers.googleAuth));
 router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
 
-router.post("/pages", authenticate, validation(schemas.pagesSchema), ctrlWrapper(usersControllers.managePages))
+router.post(
+  "/pages",
+  authenticate,
+  validationBody(schemas.pagesSchema),
+  ctrlWrapper(usersControllers.managePages)
+);
+
+router.get("/", authenticate, ctrlWrapper(usersControllers.getUserInfo));
 module.exports = router;
 
-module.exports = router;
+
