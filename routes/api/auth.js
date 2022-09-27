@@ -23,6 +23,14 @@ router.post(
 router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
 router.get("/google", ctrlWrapper(usersControllers.googleAuth));
 router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
-module.exports = router;
+router.get(
+  "/verify/:verificationToken",
+  ctrlWrapper(usersControllers.verifyEmail)
+);
+router.post(
+  "/verify",
+  validationBody(schemas.verifyEmailSchema),
+  ctrlWrapper(usersControllers.resendVerifyEmail)
+);
 
 module.exports = router;

@@ -1,11 +1,9 @@
-
-const usersControllers = require("./users");
-const books = require('./books');
-const planning = require('./planning');
+const usersControllers = require("./auth");
+const books = require("./books");
+const planning = require("./planning");
 
 module.exports = {
-    books,
-    planning,
-  usersControllers
-}
-
+  books,
+  planning,
+  usersControllers,
+};
