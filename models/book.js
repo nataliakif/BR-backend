@@ -25,7 +25,8 @@ const bookSchema = Schema({
     },
     rating: {
         type: Number,
-        enum:[0, 1, 2, 3, 4, 5],
+        min: 0,
+        max: 5, 
         default:0
     },
     review: {
@@ -50,7 +51,7 @@ const joiSchema = Joi.object({
 });
 
 const joiBookReview = Joi.object({
-    rating: Joi.number().valid(0, 1, 2, 3, 4, 5).required(),
+    rating: Joi.number().min(0).max(5).required(),
     review: Joi.string().default("")
 })
 
