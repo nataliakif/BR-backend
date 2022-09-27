@@ -15,6 +15,7 @@ router.post(
   validationBody(schemas.registerSchema),
   ctrlWrapper(usersControllers.register)
 );
+
 router.post(
   "/login",
   validationBody(schemas.loginSchema),
@@ -23,6 +24,15 @@ router.post(
 router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
 router.get("/google", ctrlWrapper(usersControllers.googleAuth));
 router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
+
+router.post(
+  "/pages",
+  authenticate,
+  validationBody(schemas.pagesSchema),
+  ctrlWrapper(usersControllers.managePages)
+);
+
+router.get("/", authenticate, ctrlWrapper(usersControllers.getUserInfo));
 module.exports = router;
 
-module.exports = router;
+
