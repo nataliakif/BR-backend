@@ -1,8 +1,8 @@
-const { User } = require("../../models");
+const { User } = require("../../models/user");
 
-const getUserInfo = async (id) => {
+const getUserInfo = async (_id) => {
     try {
-        const data = await User.findById(id);
+        const data = await User.findOne({ _id });
         return data;
     } catch (error) {
         console.log(error.message);

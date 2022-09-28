@@ -29,8 +29,10 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Verify token is required"],
     },
-
-    pagesRead: [{ date: String, time: String, amountOfPages: String }],
+    pagesRead: {
+      type: Array,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );
@@ -56,6 +58,9 @@ const verifyEmailSchema = Joi.object({
 
 const pagesSchema = Joi.object({
   pagesRead: Joi.array().items(Joi.string()),
+  date: Joi.string().required(),
+  time: Joi.string().required(),
+  amountOfPages: Joi.string().required(),
 });
 
 const schemas = {
