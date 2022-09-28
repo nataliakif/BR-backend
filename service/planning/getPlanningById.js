@@ -1,8 +1,8 @@
-const { Planning } = require("../../models/");
+const { Planning } = require("../../models/planning");
 
-const getPlanningById = async (id) => {
+const getPlanningById = async (planningId, _id) => {
   try {
-    const data = await Planning.findById(id);
+    const data = await Planning.findOne({_id:planningId, owner:_id});
     return data;
   } catch (error) {
     console.log(error.message);
