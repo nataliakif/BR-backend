@@ -1,7 +1,8 @@
 const queryString = require("query-string");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY, BASE_URL } = process.env;
+const { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL } =
+  process.env;
 const { User } = require("../../models/user");
 
 const googleRedirect = async (req, res) => {
@@ -17,9 +18,9 @@ const googleRedirect = async (req, res) => {
     url: `https://oauth2.googleapis.com/token`,
     method: "post",
     data: {
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      redirect_uri: `${process.env.BASE_URL}/auth/google-redirect`,
+      client_id: GOOGLE_CLIENT_ID,
+      client_secret: GOOGLE_CLIENT_SECRET,
+      redirect_uri: `${BASE_URL}/auth/google-redirect`,
       grant_type: "authorization_code",
       code,
     },
