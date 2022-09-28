@@ -31,7 +31,7 @@ const bookSchema = Schema({
     },
     review: {
         type: String,
-        default:""
+        default:null
     },
     owner: {
         type: Schema.Types.ObjectId,
@@ -51,6 +51,7 @@ const joiSchema = Joi.object({
 });
 
 const joiBookReview = Joi.object({
+    id: Joi.required(),
     rating: Joi.number().min(0).max(5).required(),
     review: Joi.string().default("")
 })

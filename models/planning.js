@@ -10,9 +10,9 @@ const planningSchema = Schema({
         type: String,
         required: [true, 'Set start date of planning']
     },
-    bookTitle: {
+    bookId: {
         type: String,
-        required:[true, "Set book title"]
+        required:[true, "Set book id"]
     },
     owner: {
         type: Schema.Types.ObjectId,
@@ -24,7 +24,7 @@ const planningSchema = Schema({
 const joiSchema = Joi.object({
     startDate: Joi.string().required(),
     finishDate: Joi.string().required(),
-    bookTitle: Joi.string().required(),
+    bookId: Joi.string().required(),
 });
 
 const Planning = model("planning", planningSchema);

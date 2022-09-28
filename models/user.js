@@ -21,7 +21,10 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
-    pagesRead: [{ date: String, time:String, amountOfPages: String }]
+    pagesRead: {
+      type: Array,
+      default:null
+    }
   },
   { versionKey: false, timestamps: true }
 );
@@ -42,7 +45,9 @@ const loginSchema = Joi.object({
 });
 
 const pagesSchema = Joi.object({
-  pagesRead: Joi.array().items(Joi.string())
+  date: Joi.string().required(),
+  time: Joi.string().required(),
+  amountOfPages: Joi.string().required()
 });
 
 const schemas = {

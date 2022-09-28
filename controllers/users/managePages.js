@@ -2,16 +2,19 @@ const { user: service } = require("../../service");
 
 const managePages = async (req, res) => {
     const { _id } = req.user;
-    if (!_id) {
-        throw new Error("User not authorized");
+    const { date, time, amountOfPages } = req.body;
+    const user = await service.getUserInfo(_id);
+     if (!user) {
+        throw new Error(`User with such ${_id} was not found`);
     };
-    if (!req.body) {
-        throw new Error("Check for input data");
-    }
-    const result = await service.managePages(req.body, _id);
-    res.status(201).json({
+    user.pagesRead.push({ date, time, amountOfPages });
+    const result = await service.managePages(_id, user);
+    if (!result) {
+        throw new Error("Something went wrong on User update");
+    };   
+    res.json({
         status: 'success',
-        code: 201,
+        code: 200,
         data: {
             result
         }
