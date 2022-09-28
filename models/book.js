@@ -20,8 +20,8 @@ const bookSchema = Schema({
     },
     status: {
         type: String,
-        enum: ["alreadyRead", "readingNow", "goingToRead"],
-        default: "goingToRead"
+        enum: ["finished", "reading_now", "going_to_read"],
+        default: "going_to_read"
     },
     rating: {
         type: Number,
@@ -45,8 +45,8 @@ const joiSchema = Joi.object({
     author: Joi.string().required(),
     publicationDate: Joi.number().min(1).required(),
     amountOfPages: Joi.number().min(1).required(),
-    status: Joi.string().default("goingToRead").valid("alreadyRead", "readingNow", "goingToRead"),
-    rating: Joi.number().default(0).valid(0, 1, 2, 3, 4, 5),
+    status: Joi.string().default("going_to_read").valid("finished", "reading_now", "going_to_read"),
+    rating: Joi.number().default(0).min(0).max(5),
     review: Joi.string().default("")
 });
 
