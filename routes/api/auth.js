@@ -34,12 +34,6 @@ router.post(
   ctrlWrapper(usersControllers.resendVerifyEmail)
 );
 
-router.post(
-  "/pages",
-  authenticate,
-  validationBody(schemas.pagesSchema),
-  ctrlWrapper(usersControllers.managePages)
-);
 
 router.get("/user", authenticate, ctrlWrapper(usersControllers.getUserInfo));
 module.exports = router;
