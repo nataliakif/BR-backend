@@ -18,5 +18,5 @@ const googleAuth = async (req, res) => {
     `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
   );
 };
-
+// `https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`
 module.exports = googleAuth;

@@ -11,6 +11,8 @@ const {
 
 const { User } = require("../../models/user");
 
+const { Session } = require("../../models/sessionModel");
+
 const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
 
@@ -40,29 +42,42 @@ const googleRedirect = async (req, res) => {
     },
   });
 
-  const { email, name, id } = userData.data;
-  // const { access_token } = tokenData.data;
-  const payload = {
-    id: id,
-  };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1m" });
+  // const validateUserData = userData.data.email;
+  // if (!validateUserData) {
+  //   throw RequestError(
+  //     403,
+  //     "You should register from front-end first (not postman)"
+  //   );
+  // }
+  const { email, name } = userData.data;
   const user = await User.findOne({ email });
-
   if (!user) {
-    return await User.create({
+    await User.create({
       name,
       email,
-      token,
       verify: true,
-      verificationToken: "",
+      verificationToken: " ",
     });
   }
-  console.log(userData.originUrl);
-  await User.findOneAndUpdate({ email }, { token });
-  return res
-    .status(200)
-    .redirect(
-      `${FRONTEND_URL}?accessToken=${token}$name=${name}&email=${email}`
-    );
+  const userNew = await User.findOne({ email });
+  const newSession = await Session.create({
+    uid: userNew._id,
+  });
+  // const { access_token } = tokenData.data;
+
+  const payload = {
+    uid: userNew._id,
+    sid: newSession._id,
+  };
+  const token = jwt.sign(payload, SECRET_KEY, {
+    expiresIn: "1h",
+  });
+  const refreshToken = jwt.sign(payload, SECRET_KEY, {
+    expiresIn: "30d",
+  });
+
+  return res.redirect(
+    `${FRONTEND_URL}?accessToken=${token}$name=${name}&email=${email}&refreshToken=${refreshToken}&sid=${newSession._id}`
+  );
 };
 module.exports = googleRedirect;
