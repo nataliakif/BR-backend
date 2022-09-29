@@ -1,8 +1,14 @@
 const queryString = require("query-string");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
-const { SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL } =
-  process.env;
+const {
+  SECRET_KEY,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  BASE_URL,
+  FRONTEND_URL,
+} = process.env;
+
 const { User } = require("../../models/user");
 
 const googleRedirect = async (req, res) => {
@@ -39,26 +45,24 @@ const googleRedirect = async (req, res) => {
   const payload = {
     id: id,
   };
-  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
+  const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "1m" });
   const user = await User.findOne({ email });
+
   if (!user) {
-    await User.create({
+    return await User.create({
       name,
       email,
       token,
+      verify: true,
+      verificationToken: "",
     });
   }
+  console.log(userData.originUrl);
   await User.findOneAndUpdate({ email }, { token });
   return res
     .status(200)
-    .json({
-      status: "success",
-      code: 200,
-      data: {
-        email,
-        token,
-      },
-    })
-    .redirect(`${BASE_URL}?accessToken=${token}`);
+    .redirect(
+      `${FRONTEND_URL}?accessToken=${token}$name=${name}&email=${email}`
+    );
 };
 module.exports = googleRedirect;
