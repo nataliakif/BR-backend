@@ -5,7 +5,7 @@ const googleAuth = require("./googleAuth");
 const googleRedirect = require("./googleRedirect");
 const resendVerifyEmail = require("./resendVerifyEmail");
 const verifyEmail = require("./verifyEmail");
-const managePages = require("./managePages");
+// const managePages = require("./managePages/");
 const getUserInfo = require("./getUserInfo");
 
 module.exports = {
@@ -16,6 +16,6 @@ module.exports = {
   googleRedirect,
   resendVerifyEmail,
   verifyEmail,
-  managePages,
+  // managePages,
   getUserInfo,
 };
