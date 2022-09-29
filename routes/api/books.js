@@ -5,6 +5,8 @@ const { joiSchema, joiBookReview } = require("../../models/book");
 
 const router = express.Router()
 
+router.get('/', authenticate, ctrlWrapper(ctrl.getAllBooks));
+
 router.post('/', authenticate, validationBody(joiSchema), ctrlWrapper(ctrl.addBook));
 
 router.post('/review', authenticate, validationBody(joiBookReview), ctrlWrapper(ctrl.addBookReview));
