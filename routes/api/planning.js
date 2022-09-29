@@ -16,4 +16,6 @@ router.post(
     ctrlWrapper(ctrl.updatePlanningPages)
 );
 
+router.delete('/:planningId', authenticate, ctrlWrapper(ctrl.deletePlanning));
+
 module.exports = router;
