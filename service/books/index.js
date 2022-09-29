@@ -3,11 +3,13 @@ const addBookReview = require('./addBookReview');
 const findBook = require('./findBook');
 const findDuplicate = require('./findDuplicate');
 const getAllBooks = require('./getAllBooks');
+const updateBookStatus = require('./updateBookStatus');
 
 module.exports = {
     addBook,
     addBookReview,
     findBook,
     findDuplicate,
-    getAllBooks
+    getAllBooks,
+    updateBookStatus
 }
