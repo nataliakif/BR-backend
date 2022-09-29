@@ -9,8 +9,8 @@ router.post('/', authenticate, validationBody(joiSchema), ctrlWrapper(ctrl.start
 
 router.get('/:planningId', authenticate, ctrlWrapper(ctrl.getPlanning));
 
-router.post(
-    '/readStatistics',
+router.patch(
+    '/:planningId/readStatistics',
     authenticate,
     validationBody(pagesSchema),
     ctrlWrapper(ctrl.updatePlanningPages)
