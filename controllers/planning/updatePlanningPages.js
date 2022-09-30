@@ -2,7 +2,8 @@ const { planning:service } = require("../../service/");
 
 const updatePlanningPages = async (req, res) => {
     const { _id } = req.user;
-    const { planningId, date, time, amountOfPages } = req.body;
+    const { planningId } = req.params;
+    const { date, time, amountOfPages } = req.body;
     const planning = await service.getPlanningById(planningId, _id);
      if (!planning) {
         throw new Error(`Planning with such ${planningId} was not found`);

@@ -32,7 +32,6 @@ const joiSchema = Joi.object({
 });
 
 const pagesSchema = Joi.object({
-  planningId: Joi.string().required(),
   date: Joi.string().required(),
   time: Joi.string().required(),
   amountOfPages: Joi.string().required().min(0),

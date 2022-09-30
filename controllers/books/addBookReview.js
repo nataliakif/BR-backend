@@ -1,15 +1,13 @@
 const { book: service } = require("../../service");
 
 const addBookReview = async (req, res) => {
-    const { _id } = req.user;
-    const { id, rating, review } = req.body;
-    const book = await service.findBook(id, _id);
+    const { bookId } = req.params;
+    const { rating, review } = req.body;
+    const book = await service.getBookByBookId(bookId);
     if (!book) {
-        throw new Error(`Book with such id=${id} and such ownerId=${_id} was not found.`);
+        throw new Error(`There is no book with such id=${id}.`);
     };
-    book.rating = rating;
-    book.review = review;
-    const result = await service.addBookReview(id, book);
+    const result = await service.addBookReview(bookId, rating, review);
     res.status(201).json({
         status: 'success',
         code: 201,
