@@ -7,8 +7,10 @@ const updatePlanningPages = async (req, res) => {
      if (!planning) {
         throw new Error(`Planning with such ${planningId} was not found`);
     };
-    planning.readStatistics.push({ date, time, amountOfPages });
-    const result = await service.updatePlanningPages(_id,planningId, planning);
+    let readStatistics;
+    readStatistics = planning.readStatistics;
+    readStatistics.push({ date, time, amountOfPages });
+    const result = await service.updatePlanningPages(_id, planningId, readStatistics);
     res.json({
         status: "success",
         code: 200,
