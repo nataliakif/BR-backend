@@ -50,15 +50,10 @@ const joiSchema = Joi.object({
     review: Joi.string().default("")
 });
 
-const joiBookReview = Joi.object({
-    rating: Joi.number().min(0).max(5).required(),
-    review: Joi.string().default("")
-})
 
 const Book = model("book", bookSchema);
 
 module.exports = {
     Book,
-    joiSchema,
-    joiBookReview
+    joiSchema
 }

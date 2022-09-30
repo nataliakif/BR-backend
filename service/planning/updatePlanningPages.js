@@ -1,10 +1,10 @@
 const { Planning } = require("../../models/planning");
 
-const updatePlanningPages = async (ownerId, planningId, readStatistics) => {
+const updatePlanningPages = async (ownerId, planningId, newPlanning) => {
   try {
     const data = await Planning.findOneAndUpdate(
       { _id: planningId, owner: ownerId },
-      { readStatistics }, { new: true }
+      { ...newPlanning }, { new: true }
     );
     return data;
   } catch (error) {
