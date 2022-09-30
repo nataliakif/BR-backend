@@ -6,7 +6,9 @@ const googleRedirect = require("./googleRedirect");
 const resendVerifyEmail = require("./resendVerifyEmail");
 const verifyEmail = require("./verifyEmail");
 // const managePages = require("./managePages/");
+const refreshTokens = require("./refreshTokens");
 const getUserInfo = require("./getUserInfo");
+const authorization = require("./authorization");
 
 module.exports = {
   register,
@@ -18,4 +20,6 @@ module.exports = {
   verifyEmail,
   // managePages,
   getUserInfo,
+  refreshTokens,
+  authorization,
 };
