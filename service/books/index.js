@@ -4,6 +4,7 @@ const findBook = require('./findBook');
 const findDuplicate = require('./findDuplicate');
 const getAllBooks = require('./getAllBooks');
 const updateBookStatus = require('./updateBookStatus');
+const getBookByBookId = require('./getBookByBookId');
 
 module.exports = {
     addBook,
@@ -11,5 +12,6 @@ module.exports = {
     findBook,
     findDuplicate,
     getAllBooks,
-    updateBookStatus
+    updateBookStatus,
+    getBookByBookId
 }

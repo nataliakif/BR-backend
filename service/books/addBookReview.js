@@ -1,8 +1,8 @@
 const { Book } = require("../../models/book");
 
-const addBookReview = async (id, book) => {
+const addBookReview = async (bookId, rating, review) => {
     try {
-        const data = await Book.findByIdAndUpdate({_id:id}, { ...book }, { new: true });
+        const data = await Book.findByIdAndUpdate({ _id: bookId }, { rating, review }, { new: true });
         return data;
     } catch (error) {
         console.log(error.message);
