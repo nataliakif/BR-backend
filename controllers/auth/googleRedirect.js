@@ -2,11 +2,14 @@ const queryString = require("query-string");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const {
-  SECRET_KEY,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
   BASE_URL,
   FRONTEND_URL,
+  SECRET_KEY,
+  SECRET_REFRESH_KEY,
+  ACCESS_TOKEN_EXPIRESIN,
+  REFRESH_TOKEN_EXPIRESIN,
 } = process.env;
 
 const { User } = require("../../models/user");
@@ -59,6 +62,7 @@ const googleRedirect = async (req, res) => {
       verificationToken: " ",
     });
   }
+
   const userNew = await User.findOne({ email });
   const newSession = await Session.create({
     uid: userNew._id,
@@ -70,10 +74,10 @@ const googleRedirect = async (req, res) => {
     sid: newSession._id,
   };
   const token = jwt.sign(payload, SECRET_KEY, {
-    expiresIn: "1h",
+    expiresIn: ACCESS_TOKEN_EXPIRESIN,
   });
-  const refreshToken = jwt.sign(payload, SECRET_KEY, {
-    expiresIn: "30d",
+  const refreshToken = jwt.sign(payload, SECRET_REFRESH_KEY, {
+    expiresIn: REFRESH_TOKEN_EXPIRESIN,
   });
 
   return res.redirect(

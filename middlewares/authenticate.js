@@ -1,33 +1,50 @@
-const jwt = require("jsonwebtoken");
-
-const { User } = require("../models/user");
-
 const { RequestError } = require("../helpers");
-
-const { SECRET_KEY } = process.env;
-
+const { User } = require("../models/user");
+// const { Session } = require("../../models/sessionModel");
+const jwt = require("jsonwebtoken");
+const { SECRET_KEY, ACCESS_TOKEN_SECRET_KEY } = process.env;
 const authenticate = async (req, res, next) => {
-  const { authorization = "" } = req.headers;
+  const authorizationHeader = req.get("Authorization");
 
-  const [bearer, token] = authorization.split(" ");
-
-  if (bearer !== "Bearer") {
-    next(RequestError(401, "Unauthorized"));
+  if (!authorizationHeader) {
+    return next(RequestError(411, "No header authorization provided"));
   }
-
   try {
-    jwt.verify(token, SECRET_KEY);
+    const acessToken = authorizationHeader.replace("Bearer ", "");
+    const payload = jwt.verify(acessToken, SECRET_KEY);
 
-    const user = await User.findOne({ token });
-
-    if (!user || !user.token) {
-      next(RequestError(401, "Unauthorized"));
+    if (!payload) {
+      throw RequestError(401, "Unauthorized");
     }
-    req.user = user;
 
+    const user = await User.findById(payload.uid);
+    // const session = await Session.findById(payload.sid);
+
+    if (!user) {
+      throw RequestError(400, "Invalid user");
+    }
+
+    // if (!session) {
+    //   throw RequestError(400, "Invalid session");
+    // }
+
+    const isTokenExpired = (token) => {
+      return (
+        Date.now() >=
+        JSON.parse(Buffer.from(token.split(".")[1], "base64").toString()).exp *
+          ACCESS_TOKEN_SECRET_KEY
+      );
+    };
+
+    const TokenExpired = isTokenExpired(acessToken);
+    if (TokenExpired) {
+      throw RequestError(401, "Token is expired");
+    }
+
+    req.user = user;
     next();
   } catch (error) {
-    next(RequestError(401, error.message));
+    throw next(RequestError(401, error.message));
   }
 };
 module.exports = authenticate;
