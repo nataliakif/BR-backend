@@ -110,8 +110,16 @@
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Logout success",
-            "content": {}
+            "description": "Logout success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "400": {
+            "description": "Invalid user"
+          },
+          "411": {
+            "description": "No header authorization provided"
           }
         }
       }
@@ -166,6 +174,68 @@
           },
           "404": {
             "description": "Not found user",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Refresh user token",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefreshResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No refresh token provided",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found user",
+            "content": {}
+          },
+          "411": {
+            "description": "No header authorization provided",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/auth/user": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Refresh user token",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No refresh token provided",
+            "content": {}
+          },
+          "404": {
+            "description": "Not found user",
+            "content": {}
+          },
+          "411": {
+            "description": "No header authorization provided",
             "content": {}
           }
         }
@@ -282,6 +352,22 @@
           }
         }
       },
+      "RefreshResponse": {
+        "type": "object",
+        "required": ["token", "refreshToken"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "token authorization",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
+          }
+        }
+      },
       "GoogleResponse": {
         "type": "object",
         "required": ["name", "token"],
@@ -297,6 +383,70 @@
             "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
           }
         }
+      },
+      "UserResponse": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "email",
+          "password",
+          "token",
+          "refreshToken",
+          "verify",
+          "verificationToken",
+          "createdAt",
+          "updatedAt"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6336b970ef6baff44ac39950"
+          },
+          "name": {
+            "type": "string",
+            "example": "TEST MISHA"
+          },
+          "email": {
+            "type": "string",
+            "example": "test1@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "$2a$10$oYGV2/Mczhr8zopmc65SZufZDAD9PPyi7KzZW0gMzHc/04kms9eLW"
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzM2Yjk3MGVmNmJhZmY0NGFjMzk5NTAiLCJpYXQiOjE2NjQ2MTQ4NjksImV4cCI6MTY2NDYxODQ2OX0.C9GZaUFaYIGR4BgwMsu9Q86DHi--8V9dLROkrQuBUOM"
+          },
+          "refreshToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzM2Yjk3MGVmNmJhZmY0NGFjMzk5NTAiLCJpYXQiOjE2NjQ2MTQ4NjksImV4cCI6MTY2NDYxNzQ2MX0.Wz1ZdeHdzxN6X5KZhod6yYm6LrkwxfK0Z-MNbxEJBWE"
+          },
+          "verify": {
+            "type": "string",
+            "example": true
+          },
+          "verificationToken": {
+            "type": "string",
+            "example": ""
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2022-09-30T09:40:00.562Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2022-10-01T09:01:09.799Z"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

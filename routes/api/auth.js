@@ -21,15 +21,10 @@ router.post(
   validationBody(schemas.loginSchema),
   ctrlWrapper(usersControllers.login)
 );
-router.get(
-  "/logout",
-  authenticate,
-  ctrlWrapper(usersControllers.authorization),
-  ctrlWrapper(usersControllers.logout)
-);
+router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
 router.get("/google", ctrlWrapper(usersControllers.googleAuth));
 router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
-router.post("/refreshtoken", ctrlWrapper(usersControllers.refreshTokens));
+router.get("/refresh", ctrlWrapper(usersControllers.refreshTokens));
 router.get(
   "/verify/:verificationToken",
   ctrlWrapper(usersControllers.verifyEmail)

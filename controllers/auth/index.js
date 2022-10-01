@@ -8,7 +8,6 @@ const verifyEmail = require("./verifyEmail");
 // const managePages = require("./managePages/");
 const refreshTokens = require("./refreshTokens");
 const getUserInfo = require("./getUserInfo");
-const authorization = require("./authorization");
 
 module.exports = {
   register,
@@ -21,5 +20,4 @@ module.exports = {
   // managePages,
   getUserInfo,
   refreshTokens,
-  authorization,
 };
