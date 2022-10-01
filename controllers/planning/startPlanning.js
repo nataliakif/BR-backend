@@ -1,3 +1,4 @@
+const { NotFound } = require('http-errors');
 const { planning, book } = require("../../service");
 
 const startPlanning = async (req, res) => {
@@ -11,7 +12,7 @@ const startPlanning = async (req, res) => {
         let foundBook;
         foundBook = await book.findBook(item.id, _id);
         if (!foundBook) {
-            throw new Error(`Owner with such id=${_id} does not have book with id=${item.id}`);
+            throw new NotFound(404, `Owner with such id=${_id} does not have book with id=${item.id}`);
         }
     }
     const result = await planning.startPlanning(body, _id);
