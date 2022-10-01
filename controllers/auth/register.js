@@ -1,8 +1,14 @@
 const bcrypt = require("bcryptjs");
 const { User } = require("../../models/user");
-const { nanoid } = require("nanoid");
+const jwt = require("jsonwebtoken");
 const { RequestError, sendEmail } = require("../../helpers");
-const { BASE_URL } = process.env;
+const {
+  FRONTEND_URL,
+  SECRET_KEY,
+  SECRET_REFRESH_KEY,
+  REFRESH_TOKEN_EXPIRESIN,
+  ACCESS_TOKEN_EXPIRESIN,
+} = process.env;
 
 const register = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -11,28 +17,42 @@ const register = async (req, res, next) => {
     throw RequestError(409, "Provided email already exists");
   }
   const hashPassword = await bcrypt.hash(password, 10);
-  const verificationToken = nanoid();
-  const result = await User.create({
+
+  await User.create({
     name,
     email,
     password: hashPassword,
     confirmPassword: hashPassword,
-    verificationToken,
+  });
+  const newUser = await User.findOne({ email });
+
+  const payload = {
+    uid: newUser._id,
+    // sid: newSession._id,
+  };
+
+  const token = jwt.sign(payload, SECRET_KEY, {
+    expiresIn: ACCESS_TOKEN_EXPIRESIN,
+  });
+  const refreshToken = jwt.sign(payload, SECRET_REFRESH_KEY, {
+    expiresIn: REFRESH_TOKEN_EXPIRESIN,
   });
   const mailVerification = {
     to: email,
-    subject: "Подтверждение регистрации на сайте",
-    html: `<a href="${BASE_URL}/auth/verify/${verificationToken}" target="_blank" >Нажмите для подтверждения email</a>`,
+    subject: "Спасибо за регистрацию на нашем сайте",
+    html: `<a href="${FRONTEND_URL}" target="_blank">Спасибо за регистрацию на нашем сайте</a>`,
   };
   await sendEmail(mailVerification);
+  await User.findByIdAndUpdate(newUser._id, { token, refreshToken });
   res.status(201).json({
     status: "success",
     code: 201,
     data: {
       user: {
-        name: result.name,
-        email: result.email,
-        verificationToken,
+        name: newUser.name,
+        email: newUser.email,
+        token,
+        refreshToken,
       },
     },
   });

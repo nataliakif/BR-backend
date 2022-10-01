@@ -23,9 +23,6 @@ const login = async (req, res, next) => {
     throw RequestError(401, "User email or password is wrong");
   }
 
-  if (!user.verify) {
-    throw RequestError(400, "Email not verify");
-  }
   // const newSession = await Session.create({
   //   uid: user._id,
   // });
