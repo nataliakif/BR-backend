@@ -31,16 +31,9 @@ const joiSchema = Joi.object({
     readStatistics: Joi.array(),
 });
 
-const pagesSchema = Joi.object({
-  date: Joi.string().required(),
-  time: Joi.string().required(),
-  amountOfPages: Joi.string().required().min(0),
-});
-
 const Planning = model("planning", planningSchema);
 
 module.exports = {
     Planning,
-    joiSchema,
-    pagesSchema
+    joiSchema
 }

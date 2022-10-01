@@ -1,16 +1,17 @@
+const { NotFound } = require('http-errors');
 const { book: service } = require("../../service");
 
 const addBookReview = async (req, res) => {
     const { bookId } = req.params;
-    const { rating, review } = req.body;
+    const newBook =  req.body;
     const book = await service.getBookByBookId(bookId);
     if (!book) {
-        throw new Error(`There is no book with such id=${id}.`);
+        throw new NotFound(404, "There is no book with such id.");
     };
-    const result = await service.addBookReview(bookId, rating, review);
-    res.status(201).json({
+    const result = await service.addBookReview(bookId, newBook);
+    res.status(200).json({
         status: 'success',
-        code: 201,
+        code: 200,
         data: {
             result
         }

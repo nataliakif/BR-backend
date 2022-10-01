@@ -1,3 +1,4 @@
+const { NotFound } = require('http-errors');
 const { planning, book } = require("../../service");
 
 const deletePlanning = async (req, res) => {
@@ -13,12 +14,12 @@ const deletePlanning = async (req, res) => {
     }
     const result = await planning.deletePlanning(planningId);
     if (!result) {
-        throw new Error("Not found");
+        throw new Error("Server Error");
     };
     res.json({
         status: "success",
         code: 200,
-        message: "contact deleted",
+        message: "book deleted",
         data: {
             result
         }
