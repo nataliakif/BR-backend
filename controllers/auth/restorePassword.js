@@ -20,7 +20,7 @@ const restorePassword = async (req, res) => {
   const mailResendPassword = {
     to: email,
     subject: "Restore your Password",
-    html: `Restore your password: <b>${newPassword}</b>, <a href="${FRONTEND_URL}" target="_blank">Come back to us:)</a>`,
+    html: `<b>${newPassword}</b>, <a href="${FRONTEND_URL}/BR-frontend/login" target="_blank">Come back to us:)</a>,`,
   };
   await sendEmail(mailResendPassword);
   res.status(200).json({
