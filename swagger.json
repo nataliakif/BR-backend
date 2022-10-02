@@ -110,7 +110,14 @@
         "security": [{ "Bearer": [] }],
         "responses": {
           "200": {
-            "description": "Logout success"
+            "description": "Logout success",
+            "content": {
+              " application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -124,17 +131,17 @@
         }
       }
     },
-    "/auth/verify": {
+    "/auth/restorePasswort": {
       "post": {
         "tags": ["Auth"],
-        "summary": "Resend verify user email",
+        "summary": "Restore passwort user's",
         "requestBody": {
-          "description": "verify email object",
+          "description": "Restore passwort object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/VerifyRequest"
+                "$ref": "#/components/schemas/RestorePasswortRequest"
               }
             }
           }
@@ -142,7 +149,13 @@
         "responses": {
           "200": {
             "description": "Email verify resend",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestorePasswordResponse"
+                }
+              }
+            }
           },
           "404": {
             "description": "Not found user",
@@ -155,35 +168,19 @@
         }
       }
     },
-    "/auth/verify/:verificationToken": {
-      "get": {
-        "tags": ["Auth"],
-        "summary": "Verify user email",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "verificationToken",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Email verify success",
-            "content": {}
-          },
-          "404": {
-            "description": "Not found user",
-            "content": {}
-          }
-        }
-      }
-    },
     "/auth/refresh": {
       "get": {
         "tags": ["Auth"],
         "summary": "Refresh user token",
         "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "refreshToken",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "success",
@@ -624,10 +621,15 @@
             "description": "User's email",
             "format": "email"
           },
-          "verificationToken": {
+          "token": {
             "type": "string",
-            "description": "Verification token email",
-            "format": "email"
+            "description": "token authorization",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token authorization",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
           }
         }
       },
@@ -651,6 +653,10 @@
         "type": "object",
         "required": ["name", "email"],
         "properties": {
+          "name": {
+            "type": "String",
+            "description": "User's name"
+          },
           "email": {
             "type": "string",
             "description": "User's email",
@@ -660,10 +666,26 @@
             "type": "string",
             "description": "token authorization",
             "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "refresh token authorization",
+            "example": "eyJhbGciOiTTUzI1YYIsInR6cC18IkpXKCJ9.eyJpZCZDVhMGJjNI91jYzMzMwMTk5WEwMDY2YTljOSIsImlhdCI6MTY2NDI4NzE1NywiZXhwIjoxNjY0MjkwNzU3fQ.7NIhtDVEFETbYwjsW5ghXuwbSPbVJpGdYPSXl7yc3fo"
           }
         }
       },
-      "VerifyRequest": {
+      "LogoutResponse": {
+        "type": "object",
+        "required": ["message"],
+        "properties": {
+          "message": {
+            "type": "String",
+            "description": "Logout success",
+            "example": "Logout success"
+          }
+        }
+      },
+      "RestorePasswortRequest": {
         "type": "object",
         "required": ["email"],
         "properties": {
@@ -671,6 +693,17 @@
             "type": "string",
             "description": "User's email",
             "format": "email"
+          }
+        }
+      },
+      "RestorePasswordResponse": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "New user password in user email",
+            "example": "New password has been sent to your email"
           }
         }
       },
