@@ -6,7 +6,7 @@ const deletePlanning = async (req, res) => {
     const { _id } = req.user;
     const existingPlan = await planning.getPlanningById(planningId, _id);
     if (!existingPlan) {
-        throw Error(`There is no planning with such id=${planningId}`)
+        throw new NotFound(404, `Planning with such id=${planningId} was not found`);
     }
     let allBooks = existingPlan.books;
     for (const item of allBooks) {
