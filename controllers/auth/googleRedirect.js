@@ -81,7 +81,7 @@ const googleRedirect = async (req, res) => {
   });
 
   return res.redirect(
-    `${FRONTEND_URL}/BR-frontend/login?accessToken=${token}&name=${name}&email=${email}&refreshToken=${refreshToken}`
+    `${FRONTEND_URL}?accessToken=${token}&name=${name}&email=${email}&refreshToken=${refreshToken}`
   );
 };
 module.exports = googleRedirect;
