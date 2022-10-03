@@ -24,7 +24,7 @@ router.post(
 router.get("/logout", authenticate, ctrlWrapper(usersControllers.logout));
 router.get("/google", ctrlWrapper(usersControllers.googleAuth));
 router.get("/google-redirect", ctrlWrapper(usersControllers.googleRedirect));
-router.get("/refresh", ctrlWrapper(usersControllers.refreshTokens));
+router.post("/refresh", ctrlWrapper(usersControllers.refreshTokens));
 router.post(
   "/restorePassword",
   validationBody(schemas.verifyEmailSchema),

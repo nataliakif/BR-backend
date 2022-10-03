@@ -9,15 +9,14 @@ const {
   REFRESH_TOKEN_EXPIRESIN,
 } = process.env;
 
-const refreshTokens = async (req, res) => {
-  const authorizationHeader = req.get("Authorization");
-  if (!authorizationHeader) {
-    throw RequestError(411, "No header authorization provided");
+const refresh = async (req, res) => {
+  const reqRefresh = req.body.refreshToken;
+  if (!reqRefresh) {
+    throw RequestError(411, "No provided refresh token");
   }
 
-  const reqRefreshToken = authorizationHeader.replace("Bearer ", "");
   try {
-    const { uid } = jwt.verify(reqRefreshToken, SECRET_REFRESH_KEY);
+    const { uid } = jwt.verify(reqRefresh, SECRET_REFRESH_KEY);
 
     const user = await User.findById(uid);
 
@@ -46,4 +45,4 @@ const refreshTokens = async (req, res) => {
     throw RequestError(400, "No refresh token provided");
   }
 };
-module.exports = refreshTokens;
+module.exports = refresh;
