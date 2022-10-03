@@ -172,15 +172,17 @@
       "get": {
         "tags": ["Auth"],
         "summary": "Refresh user token",
-        "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "refreshToken",
-            "required": true,
-            "type": "string"
+        "requestBody": {
+          "description": "refresh token object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequest"
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "success",
@@ -256,19 +258,19 @@
         }
       }
     },
-    "/api/books":{
-      "get":{
-        "tags":["Books"],
+    "/api/books": {
+      "get": {
+        "tags": ["Books"],
         "summary": "Get all books which user has",
-        "parameters":[],
-        "security":[{"Bearer":[]}],
-        "responses":{
-          "200":{
-            "description":"Books are found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/GetBookResponse"
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Books are found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBookResponse"
                 }
               }
             }
@@ -285,99 +287,99 @@
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
         }
       },
-      "post":{
-        "tags":["Books"],
+      "post": {
+        "tags": ["Books"],
         "summary": "Add a book to collection",
-        "parameters":[],
-        "security":[{"Bearer":[]}],
-        "requestBody":{
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
           "description": "Book's object",
-          "required":true,
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/AddBookRequest"
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddBookRequest"
               }
             }
           }
         },
-        "responses":{
-          "201":{
-            "description":"Book created successfully",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/AddBookResponse"
+        "responses": {
+          "201": {
+            "description": "Book created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddBookResponse"
                 }
               }
             }
           },
-          "400":{
-            "description":"Error creating a book",
-            "content":{}
+          "400": {
+            "description": "Error creating a book",
+            "content": {}
           },
-          "401":{
+          "401": {
             "description": "There is no token of autorization",
-            "content":{}
+            "content": {}
           },
           "411": {
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
         }
       },
-      "put":{
-        "tags":["Books"],
+      "put": {
+        "tags": ["Books"],
         "summary": "Update the book",
-        "parameters":[
+        "parameters": [
           {
-            "in":"path",
-            "name":"bookId",
-            "required":true,
-            "type":"string",
-            "description":"Book's id"
+            "in": "path",
+            "name": "bookId",
+            "required": true,
+            "type": "string",
+            "description": "Book's id"
           }
         ],
-        "security":[{"Bearer":[]}],
-        "requestBody":{
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
           "description": "Book's object",
-          "required":true,
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/UpdateBookRequest"
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookRequest"
               }
             }
           }
         },
-        "responses":{
-          "200":{
-            "description":"Book updated successfully",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/UpdateBookResponse"
+        "responses": {
+          "200": {
+            "description": "Book updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateBookResponse"
                 }
               }
             }
           },
-          "400":{
-            "description":"Error updating the book",
-            "content":{}
+          "400": {
+            "description": "Error updating the book",
+            "content": {}
           },
-          "401":{
+          "401": {
             "description": "There is no token of autorization",
-            "content":{}
+            "content": {}
           },
           "404": {
             "description": "Not found book",
@@ -387,26 +389,26 @@
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
         }
       }
     },
-    "/api/planning":{
-      "get":{
-        "tags":["Planning"],
+    "/api/planning": {
+      "get": {
+        "tags": ["Planning"],
         "summary": "Get planning which user has",
-        "parameters":[],
-        "security":[{"Bearer":[]}],
-        "responses":{
-          "200":{
-            "description":"Planning is found",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/GetPlanningResponse"
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Planning is found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPlanningResponse"
                 }
               }
             }
@@ -423,99 +425,99 @@
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
         }
       },
-      "post":{
-        "tags":["Planning"],
+      "post": {
+        "tags": ["Planning"],
         "summary": "Add a planning to collection",
-        "parameters":[],
-        "security":[{"Bearer":[]}],
-        "requestBody":{
+        "parameters": [],
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
           "description": "Planning's object",
-          "required":true,
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/AddPlanningRequest"
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPlanningRequest"
               }
             }
           }
         },
-        "responses":{
-          "201":{
-            "description":"Planning created successfully",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/AddPlanningResponse"
+        "responses": {
+          "201": {
+            "description": "Planning created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPlanningResponse"
                 }
               }
             }
           },
-          "400":{
-            "description":"Error creating a planning",
-            "content":{}
+          "400": {
+            "description": "Error creating a planning",
+            "content": {}
           },
-          "401":{
+          "401": {
             "description": "There is no token of autorization",
-            "content":{}
+            "content": {}
           },
           "411": {
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
         }
       },
-      "put":{
-        "tags":["Planning"],
+      "put": {
+        "tags": ["Planning"],
         "summary": "Update the planning",
-        "parameters":[
+        "parameters": [
           {
-            "in":"path",
-            "name":"planningId",
-            "required":true,
-            "type":"string",
-            "description":"Planning's id"
+            "in": "path",
+            "name": "planningId",
+            "required": true,
+            "type": "string",
+            "description": "Planning's id"
           }
         ],
-        "security":[{"Bearer":[]}],
-        "requestBody":{
+        "security": [{ "Bearer": [] }],
+        "requestBody": {
           "description": "Planning's object",
-          "required":true,
-          "content":{
-            "application/json":{
-              "schema":{
-                "$ref":"#/components/schemas/UpdatePlanningRequest"
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePlanningRequest"
               }
             }
           }
         },
-        "responses":{
-          "200":{
-            "description":"Planning updated successfully",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/UpdatePlanningResponse"
+        "responses": {
+          "200": {
+            "description": "Planning updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePlanningResponse"
                 }
               }
             }
           },
-          "400":{
-            "description":"Error updating the planning",
-            "content":{}
+          "400": {
+            "description": "Error updating the planning",
+            "content": {}
           },
-          "401":{
+          "401": {
             "description": "There is no token of autorization",
-            "content":{}
+            "content": {}
           },
           "404": {
             "description": "Not found planning",
@@ -525,43 +527,43 @@
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
         }
       },
-      "delete":{
-        "tags":["Planning"],
+      "delete": {
+        "tags": ["Planning"],
         "summary": "Delete the planning",
-        "parameters":[
+        "parameters": [
           {
-            "in":"path",
-            "name":"planningId",
-            "required":true,
-            "type":"string",
-            "description":"Planning's id"
+            "in": "path",
+            "name": "planningId",
+            "required": true,
+            "type": "string",
+            "description": "Planning's id"
           }
         ],
-        "security":[{"Bearer":[]}],
-        "responses":{
-          "200":{
-            "description":"Planning deleted successfully",
-            "content":{
-              "application/json":{
-                "schema":{
-                  "$ref":"#/components/schemas/DeletePlanningResponse"
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Planning deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePlanningResponse"
                 }
               }
             }
           },
-          "400":{
-            "description":"Error deleting the planning",
-            "content":{}
+          "400": {
+            "description": "Error deleting the planning",
+            "content": {}
           },
-          "401":{
+          "401": {
             "description": "There is no token of autorization",
-            "content":{}
+            "content": {}
           },
           "404": {
             "description": "Not found planning",
@@ -571,7 +573,7 @@
             "description": "No header authorization provided",
             "content": {}
           },
-          "500":{
+          "500": {
             "description": "Server error",
             "content": {}
           }
@@ -707,6 +709,17 @@
           }
         }
       },
+      "RefreshRequest": {
+        "type": "object",
+        "required": ["refreshToken"],
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "description": "User's refresh token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzNhZjA4ZmU5OTA0OTdjNTk1NDc0ZGMiLCJpYXQiOjE2NjQ4MDcwNTYsImV4cCI6MTY2NDgwOTY0OH0.qzAMuFOkBV8hw42Ghij-MDtnf9rJ3uHKmyP8B6uqfTA"
+          }
+        }
+      },
       "RefreshResponse": {
         "type": "object",
         "required": ["token", "refreshToken"],
@@ -796,63 +809,63 @@
           }
         }
       },
-      "GetBookResponse":{
-        "type":"array",
-        "items":{
-          "type":"object",
-          "properties":{
-            "bookTitle":{
-              "type":"string",
-              "description":"Book title",
-              "example":"Drown the truth"
+      "GetBookResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "bookTitle": {
+              "type": "string",
+              "description": "Book title",
+              "example": "Drown the truth"
             },
-            "author":{
-              "type":"string",
-              "description":"Book author",
+            "author": {
+              "type": "string",
+              "description": "Book author",
               "example": "Val Rochester"
             },
-            "publicationDate":{
-              "type":"number",
+            "publicationDate": {
+              "type": "number",
               "description": "Book publication date",
               "example": "1964"
             },
-            "amountOfPages":{
-              "type":"number",
+            "amountOfPages": {
+              "type": "number",
               "description": "Quantity of book pages",
               "example": "378"
             },
-            "status":{
-              "type":"string",
+            "status": {
+              "type": "string",
               "description": "Default value on add book route",
               "example": "going_to_read"
             },
-            "rating":{
-              "type":"number",
+            "rating": {
+              "type": "number",
               "description": "Default value on add book route",
               "example": "0"
             },
-            "review":{
-              "type":"object",
+            "review": {
+              "type": "object",
               "description": "Default value on add book route",
               "example": "null"
             },
-            "owner":{
-              "type":"string",
+            "owner": {
+              "type": "string",
               "description": "Id of an owner whose this book is",
               "example": "63395c834adc6d5aa2e8ad79"
             },
-            "_id":{
-              "type":"string",
+            "_id": {
+              "type": "string",
               "description": "Generalized id for the book",
               "example": "63396a03c1b445abc2e89107"
             },
-            "createdAt":{
-              "type":"string",
+            "createdAt": {
+              "type": "string",
               "description": "Generalized date of creation",
               "example": "2022-10-02T10:37:55.965Z"
             },
-            "updatedAt":{
-              "type":"string",
+            "updatedAt": {
+              "type": "string",
               "description": "Generalized date of updating",
               "example": "2022-10-02T10:37:55.965Z"
             }
@@ -887,851 +900,851 @@
           }
         ]
       },
-      "AddBookRequest":{
-        "type":"object",
-        "required":["bookTitle", "author", "publicationDate", "amountOfPages"],
-        "properties":{
-          "bookTitle":{
-            "type":"string",
-            "description":"Book title",
-            "example":"Drown the truth"
+      "AddBookRequest": {
+        "type": "object",
+        "required": ["bookTitle", "author", "publicationDate", "amountOfPages"],
+        "properties": {
+          "bookTitle": {
+            "type": "string",
+            "description": "Book title",
+            "example": "Drown the truth"
           },
-          "author":{
-            "type":"string",
-            "description":"Book author",
+          "author": {
+            "type": "string",
+            "description": "Book author",
             "example": "Val Rochester"
           },
-          "publicationDate":{
-            "type":"integer",
+          "publicationDate": {
+            "type": "integer",
             "description": "Book publication date",
             "example": "1964"
           },
-          "amountOfPages":{
-            "type":"integer",
+          "amountOfPages": {
+            "type": "integer",
             "description": "Quantity of book pages",
             "example": "378"
           }
         }
       },
-      "AddBookResponse":{
-        "type":"object",
-        "properties":{
-          "bookTitle":{
-            "type":"string",
-            "description":"Book title",
-            "example":"Drown the truth"
+      "AddBookResponse": {
+        "type": "object",
+        "properties": {
+          "bookTitle": {
+            "type": "string",
+            "description": "Book title",
+            "example": "Drown the truth"
           },
-          "author":{
-            "type":"string",
-            "description":"Book author",
+          "author": {
+            "type": "string",
+            "description": "Book author",
             "example": "Val Rochester"
           },
-          "publicationDate":{
-            "type":"number",
+          "publicationDate": {
+            "type": "number",
             "description": "Book publication date",
             "example": "1964"
           },
-          "amountOfPages":{
-            "type":"number",
+          "amountOfPages": {
+            "type": "number",
             "description": "Quantity of book pages",
             "example": "378"
           },
-          "status":{
-            "type":"string",
+          "status": {
+            "type": "string",
             "description": "Default value on add book route",
             "example": "going_to_read"
           },
-          "rating":{
-            "type":"number",
+          "rating": {
+            "type": "number",
             "description": "Default value on add book route",
             "example": "0"
           },
-          "review":{
-            "type":"object",
+          "review": {
+            "type": "object",
             "description": "Default value on add book route",
             "example": "null"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Id of an owner whose this book is",
             "example": "63395c834adc6d5aa2e8ad79"
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Generalized id for the book",
             "example": "63396a03c1b445abc2e89107"
           },
-          "createdAt":{
-            "type":"string",
+          "createdAt": {
+            "type": "string",
             "description": "Generalized date of creation",
             "example": "2022-10-02T10:37:55.965Z"
           },
-          "updatedAt":{
-            "type":"string",
+          "updatedAt": {
+            "type": "string",
             "description": "Generalized date of updating",
             "example": "2022-10-02T10:37:55.965Z"
           }
         }
       },
-      "UpdateBookRequest":{
-        "type":"object",
-        "required":["bookTitle", "author", "publicationDate", "amountOfPages"],
-        "properties":{
-          "bookTitle":{
-            "type":"string",
-            "description":"Book title",
-            "example":"Considered for Evil"
+      "UpdateBookRequest": {
+        "type": "object",
+        "required": ["bookTitle", "author", "publicationDate", "amountOfPages"],
+        "properties": {
+          "bookTitle": {
+            "type": "string",
+            "description": "Book title",
+            "example": "Considered for Evil"
           },
-          "author":{
-            "type":"string",
-            "description":"Book author",
+          "author": {
+            "type": "string",
+            "description": "Book author",
             "example": "Oliver McGenty"
           },
-          "publicationDate":{
-            "type":"integer",
+          "publicationDate": {
+            "type": "integer",
             "description": "Book publication date",
             "example": "1823"
           },
-          "amountOfPages":{
-            "type":"integer",
+          "amountOfPages": {
+            "type": "integer",
             "description": "Quantity of book pages",
             "example": "700"
           },
-          "status":{
-            "type":"string",
+          "status": {
+            "type": "string",
             "description": "Book status - going_to_read, finished, reading_now",
             "example": "going_to_read"
           },
-          "rating":{
-            "type":"number",
+          "rating": {
+            "type": "number",
             "description": "Book rating",
             "example": "4"
           },
-          "review":{
-            "type":"string",
+          "review": {
+            "type": "string",
             "description": "Book review",
             "example": "Background is unbelievable"
           }
         }
       },
-      "UpdateBookResponse":{
-        "type":"object",
-        "properties":{
-          "bookTitle":{
-            "type":"string",
-            "description":"Book title",
-            "example":"Considered for Evil"
+      "UpdateBookResponse": {
+        "type": "object",
+        "properties": {
+          "bookTitle": {
+            "type": "string",
+            "description": "Book title",
+            "example": "Considered for Evil"
           },
-          "author":{
-            "type":"string",
-            "description":"Book author",
+          "author": {
+            "type": "string",
+            "description": "Book author",
             "example": "Oliver McGenty"
           },
-          "publicationDate":{
-            "type":"number",
+          "publicationDate": {
+            "type": "number",
             "description": "Book publication date",
             "example": "1823"
           },
-          "amountOfPages":{
-            "type":"number",
+          "amountOfPages": {
+            "type": "number",
             "description": "Quantity of book pages",
             "example": "700"
           },
-          "status":{
-            "type":"string",
+          "status": {
+            "type": "string",
             "description": "Default value on add book route",
             "example": "going_to_read"
           },
-          "rating":{
-            "type":"number",
+          "rating": {
+            "type": "number",
             "description": "Book rating",
             "example": "4"
           },
-          "review":{
-            "type":"string",
+          "review": {
+            "type": "string",
             "description": "Book review",
             "example": "Background is unbelievable"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Owner id",
             "example": "63395c834adc6d5aa2e8ad79"
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Book id",
             "example": "63396a03c1b445abc2e89107"
           },
-          "createdAt":{
-            "type":"string",
+          "createdAt": {
+            "type": "string",
             "description": "Generalized date of creation",
             "example": "2022-10-02T10:37:55.965Z"
           },
-          "updatedAt":{
-            "type":"string",
+          "updatedAt": {
+            "type": "string",
             "description": "Generalized date of updating",
             "example": "2022-10-02T10:37:55.965Z"
           }
         }
       },
-      "GetPlanningResponse":{
-        "type":"object",
-        "required":["startDate", "finishDate", "books"],
-        "properties":{
-          "startDate":{
-            "type":"string",
-            "description":"Planning date of start",
-            "example":"2022-10-04"
+      "GetPlanningResponse": {
+        "type": "object",
+        "required": ["startDate", "finishDate", "books"],
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Planning date of start",
+            "example": "2022-10-04"
           },
-          "finishDate":{
-            "type":"string",
-            "description":"Planning date of finish",
+          "finishDate": {
+            "type": "string",
+            "description": "Planning date of finish",
             "example": "2022-10-09"
           },
-          "books":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "bookTitle":{
-                  "type":"string",
-                  "description":"Book title",
-                  "example":"Drown the truth"
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bookTitle": {
+                  "type": "string",
+                  "description": "Book title",
+                  "example": "Drown the truth"
                 },
-                "author":{
-                  "type":"string",
-                  "description":"Book author",
+                "author": {
+                  "type": "string",
+                  "description": "Book author",
                   "example": "Val Rochester"
                 },
-                "publicationDate":{
-                  "type":"number",
+                "publicationDate": {
+                  "type": "number",
                   "description": "Book publication date",
                   "example": "1964"
                 },
-                "amountOfPages":{
-                  "type":"number",
+                "amountOfPages": {
+                  "type": "number",
                   "description": "Quantity of book pages",
                   "example": "378"
                 },
-                "status":{
-                  "type":"string",
+                "status": {
+                  "type": "string",
                   "description": "Book status",
                   "example": "going_to_read"
                 },
-                "rating":{
-                  "type":"number",
+                "rating": {
+                  "type": "number",
                   "description": "Book rating",
                   "example": "0"
                 },
-                "review":{
-                  "type":"object",
+                "review": {
+                  "type": "object",
                   "description": "Book review",
                   "example": "null"
                 },
-                "owner":{
-                  "type":"string",
+                "owner": {
+                  "type": "string",
                   "description": "Id of an owner whose this book is",
                   "example": "63395c834adc6d5aa2e8ad79"
                 },
-                "_id":{
-                  "type":"string",
+                "_id": {
+                  "type": "string",
                   "description": "Book id",
                   "example": "63396a03c1b445abc2e89107"
                 },
-                "createdAt":{
-                  "type":"string",
+                "createdAt": {
+                  "type": "string",
                   "description": "Generalized date of creation",
                   "example": "2022-10-02T10:37:55.965Z"
                 },
-                "updatedAt":{
-                  "type":"string",
+                "updatedAt": {
+                  "type": "string",
                   "description": "Generalized date of updating",
                   "example": "2022-10-02T10:37:55.965Z"
                 }
               }
             }
           },
-          "readStatistics":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "date":{
-                  "type":"string",
-                  "description":"date",
-                  "example":"2022.10.03"
+          "readStatistics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "date",
+                  "example": "2022.10.03"
                 },
-                "time":{
-                  "type":"string",
-                  "description":"time",
-                  "example":"12:48:23"
+                "time": {
+                  "type": "string",
+                  "description": "time",
+                  "example": "12:48:23"
                 },
-                "pagesQuantity":{
-                  "type":"integer",
-                  "description":"how many pages was read",
-                  "example":"36"
+                "pagesQuantity": {
+                  "type": "integer",
+                  "description": "how many pages was read",
+                  "example": "36"
                 }
               }
             }
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Planning id",
             "example": "63396a03c1b445abc2e89107"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Id of an owner whose this book is",
             "example": "63395c834adc6d5aa2e8ad79"
           },
-          "createdAt":{
-            "type":"string",
+          "createdAt": {
+            "type": "string",
             "description": "Generalized date of creation",
             "example": "2022-10-02T10:37:55.965Z"
           },
-          "updatedAt":{
-            "type":"string",
+          "updatedAt": {
+            "type": "string",
             "description": "Generalized date of updating",
             "example": "2022-10-02T10:37:55.965Z"
           }
         }
       },
-      "AddPlanningRequest":{
-        "type":"object",
-        "required":["startDate", "finishDate", "books"],
-        "properties":{
-          "startDate":{
-            "type":"string",
-            "description":"Planning date of start",
-            "example":"2022-10-04"
+      "AddPlanningRequest": {
+        "type": "object",
+        "required": ["startDate", "finishDate", "books"],
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Planning date of start",
+            "example": "2022-10-04"
           },
-          "finishDate":{
-            "type":"string",
-            "description":"Planning date of finish",
+          "finishDate": {
+            "type": "string",
+            "description": "Planning date of finish",
             "example": "2022-10-09"
           },
-          "books":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "bookTitle":{
-                  "type":"string",
-                  "description":"Book title",
-                  "example":"Drown the truth"
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bookTitle": {
+                  "type": "string",
+                  "description": "Book title",
+                  "example": "Drown the truth"
                 },
-                "author":{
-                  "type":"string",
-                  "description":"Book author",
+                "author": {
+                  "type": "string",
+                  "description": "Book author",
                   "example": "Val Rochester"
                 },
-                "publicationDate":{
-                  "type":"number",
+                "publicationDate": {
+                  "type": "number",
                   "description": "Book publication date",
                   "example": "1964"
                 },
-                "amountOfPages":{
-                  "type":"number",
+                "amountOfPages": {
+                  "type": "number",
                   "description": "Quantity of book pages",
                   "example": "378"
                 },
-                "status":{
-                  "type":"string",
+                "status": {
+                  "type": "string",
                   "description": "Book status",
                   "example": "going_to_read"
                 },
-                "rating":{
-                  "type":"number",
+                "rating": {
+                  "type": "number",
                   "description": "Book rating",
                   "example": "0"
                 },
-                "review":{
-                  "type":"object",
+                "review": {
+                  "type": "object",
                   "description": "Book review",
                   "example": "null"
                 },
-                "owner":{
-                  "type":"string",
+                "owner": {
+                  "type": "string",
                   "description": "Id of an owner whose this book is",
                   "example": "63395c834adc6d5aa2e8ad79"
                 },
-                "_id":{
-                  "type":"string",
+                "_id": {
+                  "type": "string",
                   "description": "Book id",
                   "example": "63396a03c1b445abc2e89107"
                 },
-                "createdAt":{
-                  "type":"string",
+                "createdAt": {
+                  "type": "string",
                   "description": "Generalized date of creation",
                   "example": "2022-10-02T10:37:55.965Z"
                 },
-                "updatedAt":{
-                  "type":"string",
+                "updatedAt": {
+                  "type": "string",
                   "description": "Generalized date of updating",
                   "example": "2022-10-02T10:37:55.965Z"
                 }
               }
             }
           },
-          "readStatistics":{
-            "type":"array"
+          "readStatistics": {
+            "type": "array"
           }
         }
       },
-      "AddPlanningResponse":{
-        "type":"object",
-        "required":["startDate", "finishDate", "books"],
-        "properties":{
-          "startDate":{
-            "type":"string",
-            "description":"Planning date of start",
-            "example":"2022-10-04"
+      "AddPlanningResponse": {
+        "type": "object",
+        "required": ["startDate", "finishDate", "books"],
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Planning date of start",
+            "example": "2022-10-04"
           },
-          "finishDate":{
-            "type":"string",
-            "description":"Planning date of finish",
+          "finishDate": {
+            "type": "string",
+            "description": "Planning date of finish",
             "example": "2022-10-09"
           },
-          "books":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "bookTitle":{
-                  "type":"string",
-                  "description":"Book title",
-                  "example":"Drown the truth"
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bookTitle": {
+                  "type": "string",
+                  "description": "Book title",
+                  "example": "Drown the truth"
                 },
-                "author":{
-                  "type":"string",
-                  "description":"Book author",
+                "author": {
+                  "type": "string",
+                  "description": "Book author",
                   "example": "Val Rochester"
                 },
-                "publicationDate":{
-                  "type":"number",
+                "publicationDate": {
+                  "type": "number",
                   "description": "Book publication date",
                   "example": "1964"
                 },
-                "amountOfPages":{
-                  "type":"number",
+                "amountOfPages": {
+                  "type": "number",
                   "description": "Quantity of book pages",
                   "example": "378"
                 },
-                "status":{
-                  "type":"string",
+                "status": {
+                  "type": "string",
                   "description": "Book status",
                   "example": "going_to_read"
                 },
-                "rating":{
-                  "type":"number",
+                "rating": {
+                  "type": "number",
                   "description": "Book rating",
                   "example": "0"
                 },
-                "review":{
-                  "type":"object",
+                "review": {
+                  "type": "object",
                   "description": "Book review",
                   "example": "null"
                 },
-                "owner":{
-                  "type":"string",
+                "owner": {
+                  "type": "string",
                   "description": "Id of an owner whose this book is",
                   "example": "63395c834adc6d5aa2e8ad79"
                 },
-                "_id":{
-                  "type":"string",
+                "_id": {
+                  "type": "string",
                   "description": "Book id",
                   "example": "63396a03c1b445abc2e89107"
                 },
-                "createdAt":{
-                  "type":"string",
+                "createdAt": {
+                  "type": "string",
                   "description": "Generalized date of creation",
                   "example": "2022-10-02T10:37:55.965Z"
                 },
-                "updatedAt":{
-                  "type":"string",
+                "updatedAt": {
+                  "type": "string",
                   "description": "Generalized date of updating",
                   "example": "2022-10-02T10:37:55.965Z"
                 }
               }
             }
           },
-          "readStatistics":{
-            "type":"array",
-            "items":{}
+          "readStatistics": {
+            "type": "array",
+            "items": {}
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Planning id",
             "example": "63396a03c1b445abc2e89107"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Id of an owner whose this book is",
             "example": "63395c834adc6d5aa2e8ad79"
           },
-          "createdAt":{
-            "type":"string",
+          "createdAt": {
+            "type": "string",
             "description": "Generalized date of creation",
             "example": "2022-10-02T10:37:55.965Z"
           },
-          "updatedAt":{
-            "type":"string",
+          "updatedAt": {
+            "type": "string",
             "description": "Generalized date of updating",
             "example": "2022-10-02T10:37:55.965Z"
           }
         }
       },
-      "UpdatePlanningRequest":{
-        "type":"object",
-        "required":["startDate", "finishDate", "books"],
-        "properties":{
-          "startDate":{
-            "type":"string",
-            "description":"Planning date of start",
-            "example":"2022-10-04"
+      "UpdatePlanningRequest": {
+        "type": "object",
+        "required": ["startDate", "finishDate", "books"],
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Planning date of start",
+            "example": "2022-10-04"
           },
-          "finishDate":{
-            "type":"string",
-            "description":"Planning date of finish",
+          "finishDate": {
+            "type": "string",
+            "description": "Planning date of finish",
             "example": "2022-10-09"
           },
-          "books":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "bookTitle":{
-                  "type":"string",
-                  "description":"Book title",
-                  "example":"Drown the truth"
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bookTitle": {
+                  "type": "string",
+                  "description": "Book title",
+                  "example": "Drown the truth"
                 },
-                "author":{
-                  "type":"string",
-                  "description":"Book author",
+                "author": {
+                  "type": "string",
+                  "description": "Book author",
                   "example": "Val Rochester"
                 },
-                "publicationDate":{
-                  "type":"number",
+                "publicationDate": {
+                  "type": "number",
                   "description": "Book publication date",
                   "example": "1964"
                 },
-                "amountOfPages":{
-                  "type":"number",
+                "amountOfPages": {
+                  "type": "number",
                   "description": "Quantity of book pages",
                   "example": "378"
                 },
-                "status":{
-                  "type":"string",
+                "status": {
+                  "type": "string",
                   "description": "Book status",
                   "example": "going_to_read"
                 },
-                "rating":{
-                  "type":"number",
+                "rating": {
+                  "type": "number",
                   "description": "Book rating",
                   "example": "0"
                 },
-                "review":{
-                  "type":"object",
+                "review": {
+                  "type": "object",
                   "description": "Book review",
                   "example": "null"
                 },
-                "owner":{
-                  "type":"string",
+                "owner": {
+                  "type": "string",
                   "description": "Id of an owner whose this book is",
                   "example": "63395c834adc6d5aa2e8ad79"
                 },
-                "_id":{
-                  "type":"string",
+                "_id": {
+                  "type": "string",
                   "description": "Book id",
                   "example": "63396a03c1b445abc2e89107"
                 },
-                "createdAt":{
-                  "type":"string",
+                "createdAt": {
+                  "type": "string",
                   "description": "Generalized date of creation",
                   "example": "2022-10-02T10:37:55.965Z"
                 },
-                "updatedAt":{
-                  "type":"string",
+                "updatedAt": {
+                  "type": "string",
                   "description": "Generalized date of updating",
                   "example": "2022-10-02T10:37:55.965Z"
                 }
               }
             }
           },
-          "readStatistics":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "date":{
-                  "type":"string",
-                  "description":"date",
-                  "example":"2022.10.03"
+          "readStatistics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "date",
+                  "example": "2022.10.03"
                 },
-                "time":{
-                  "type":"string",
-                  "description":"time",
-                  "example":"12:48:23"
+                "time": {
+                  "type": "string",
+                  "description": "time",
+                  "example": "12:48:23"
                 },
-                "pagesQuantity":{
-                  "type":"integer",
-                  "description":"how many pages was read",
-                  "example":"36"
+                "pagesQuantity": {
+                  "type": "integer",
+                  "description": "how many pages was read",
+                  "example": "36"
                 }
               }
             }
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Planning id",
             "example": "63396a03c1b445abc2e89107"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Id of an owner whose this book is",
             "example": "63395c834adc6d5aa2e8ad79"
           }
         }
       },
-      "UpdatePlanningResponse":{
-        "type":"object",
-        "required":["startDate", "finishDate", "books"],
-        "properties":{
-          "startDate":{
-            "type":"string",
-            "description":"Planning date of start",
-            "example":"2022-10-04"
+      "UpdatePlanningResponse": {
+        "type": "object",
+        "required": ["startDate", "finishDate", "books"],
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Planning date of start",
+            "example": "2022-10-04"
           },
-          "finishDate":{
-            "type":"string",
-            "description":"Planning date of finish",
+          "finishDate": {
+            "type": "string",
+            "description": "Planning date of finish",
             "example": "2022-10-09"
           },
-          "books":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "bookTitle":{
-                  "type":"string",
-                  "description":"Book title",
-                  "example":"Drown the truth"
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bookTitle": {
+                  "type": "string",
+                  "description": "Book title",
+                  "example": "Drown the truth"
                 },
-                "author":{
-                  "type":"string",
-                  "description":"Book author",
+                "author": {
+                  "type": "string",
+                  "description": "Book author",
                   "example": "Val Rochester"
                 },
-                "publicationDate":{
-                  "type":"number",
+                "publicationDate": {
+                  "type": "number",
                   "description": "Book publication date",
                   "example": "1964"
                 },
-                "amountOfPages":{
-                  "type":"number",
+                "amountOfPages": {
+                  "type": "number",
                   "description": "Quantity of book pages",
                   "example": "378"
                 },
-                "status":{
-                  "type":"string",
+                "status": {
+                  "type": "string",
                   "description": "Book status",
                   "example": "going_to_read"
                 },
-                "rating":{
-                  "type":"number",
+                "rating": {
+                  "type": "number",
                   "description": "Book rating",
                   "example": "0"
                 },
-                "review":{
-                  "type":"object",
+                "review": {
+                  "type": "object",
                   "description": "Book review",
                   "example": "null"
                 },
-                "owner":{
-                  "type":"string",
+                "owner": {
+                  "type": "string",
                   "description": "Id of an owner whose this book is",
                   "example": "63395c834adc6d5aa2e8ad79"
                 },
-                "_id":{
-                  "type":"string",
+                "_id": {
+                  "type": "string",
                   "description": "Book id",
                   "example": "63396a03c1b445abc2e89107"
                 },
-                "createdAt":{
-                  "type":"string",
+                "createdAt": {
+                  "type": "string",
                   "description": "Generalized date of creation",
                   "example": "2022-10-02T10:37:55.965Z"
                 },
-                "updatedAt":{
-                  "type":"string",
+                "updatedAt": {
+                  "type": "string",
                   "description": "Generalized date of updating",
                   "example": "2022-10-02T10:37:55.965Z"
                 }
               }
             }
           },
-          "readStatistics":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "date":{
-                  "type":"string",
-                  "description":"date",
-                  "example":"2022.10.03"
+          "readStatistics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "date",
+                  "example": "2022.10.03"
                 },
-                "time":{
-                  "type":"string",
-                  "description":"time",
-                  "example":"12:48:23"
+                "time": {
+                  "type": "string",
+                  "description": "time",
+                  "example": "12:48:23"
                 },
-                "pagesQuantity":{
-                  "type":"integer",
-                  "description":"how many pages was read",
-                  "example":"36"
+                "pagesQuantity": {
+                  "type": "integer",
+                  "description": "how many pages was read",
+                  "example": "36"
                 }
               }
             }
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Planning id",
             "example": "63396a03c1b445abc2e89107"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Id of an owner whose this book is",
             "example": "63395c834adc6d5aa2e8ad79"
           },
-          "createdAt":{
-            "type":"string",
+          "createdAt": {
+            "type": "string",
             "description": "Generalized date of creation",
             "example": "2022-10-02T10:37:55.965Z"
           },
-          "updatedAt":{
-            "type":"string",
+          "updatedAt": {
+            "type": "string",
             "description": "Generalized date of updating",
             "example": "2022-10-02T10:37:55.965Z"
           }
         }
       },
-      "DeletePlanningResponse":{
-        "type":"object",
-        "required":["startDate", "finishDate", "books"],
-        "properties":{
-          "startDate":{
-            "type":"string",
-            "description":"Planning date of start",
-            "example":"2022-10-04"
+      "DeletePlanningResponse": {
+        "type": "object",
+        "required": ["startDate", "finishDate", "books"],
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "description": "Planning date of start",
+            "example": "2022-10-04"
           },
-          "finishDate":{
-            "type":"string",
-            "description":"Planning date of finish",
+          "finishDate": {
+            "type": "string",
+            "description": "Planning date of finish",
             "example": "2022-10-09"
           },
-          "books":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "bookTitle":{
-                  "type":"string",
-                  "description":"Book title",
-                  "example":"Drown the truth"
+          "books": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "bookTitle": {
+                  "type": "string",
+                  "description": "Book title",
+                  "example": "Drown the truth"
                 },
-                "author":{
-                  "type":"string",
-                  "description":"Book author",
+                "author": {
+                  "type": "string",
+                  "description": "Book author",
                   "example": "Val Rochester"
                 },
-                "publicationDate":{
-                  "type":"number",
+                "publicationDate": {
+                  "type": "number",
                   "description": "Book publication date",
                   "example": "1964"
                 },
-                "amountOfPages":{
-                  "type":"number",
+                "amountOfPages": {
+                  "type": "number",
                   "description": "Quantity of book pages",
                   "example": "378"
                 },
-                "status":{
-                  "type":"string",
+                "status": {
+                  "type": "string",
                   "description": "Book status",
                   "example": "going_to_read"
                 },
-                "rating":{
-                  "type":"number",
+                "rating": {
+                  "type": "number",
                   "description": "Book rating",
                   "example": "0"
                 },
-                "review":{
-                  "type":"object",
+                "review": {
+                  "type": "object",
                   "description": "Book review",
                   "example": "null"
                 },
-                "owner":{
-                  "type":"string",
+                "owner": {
+                  "type": "string",
                   "description": "Id of an owner whose this book is",
                   "example": "63395c834adc6d5aa2e8ad79"
                 },
-                "_id":{
-                  "type":"string",
+                "_id": {
+                  "type": "string",
                   "description": "Book id",
                   "example": "63396a03c1b445abc2e89107"
                 },
-                "createdAt":{
-                  "type":"string",
+                "createdAt": {
+                  "type": "string",
                   "description": "Generalized date of creation",
                   "example": "2022-10-02T10:37:55.965Z"
                 },
-                "updatedAt":{
-                  "type":"string",
+                "updatedAt": {
+                  "type": "string",
                   "description": "Generalized date of updating",
                   "example": "2022-10-02T10:37:55.965Z"
                 }
               }
             }
           },
-          "readStatistics":{
-            "type":"array",
-            "items":{
-              "type":"object",
-              "properties":{
-                "date":{
-                  "type":"string",
-                  "description":"date",
-                  "example":"2022.10.03"
+          "readStatistics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "date": {
+                  "type": "string",
+                  "description": "date",
+                  "example": "2022.10.03"
                 },
-                "time":{
-                  "type":"string",
-                  "description":"time",
-                  "example":"12:48:23"
+                "time": {
+                  "type": "string",
+                  "description": "time",
+                  "example": "12:48:23"
                 },
-                "pagesQuantity":{
-                  "type":"integer",
-                  "description":"how many pages was read",
-                  "example":"36"
+                "pagesQuantity": {
+                  "type": "integer",
+                  "description": "how many pages was read",
+                  "example": "36"
                 }
               }
             }
           },
-          "_id":{
-            "type":"string",
+          "_id": {
+            "type": "string",
             "description": "Planning id",
             "example": "63396a03c1b445abc2e89107"
           },
-          "owner":{
-            "type":"string",
+          "owner": {
+            "type": "string",
             "description": "Id of an owner whose this book is",
             "example": "63395c834adc6d5aa2e8ad79"
           },
-          "createdAt":{
-            "type":"string",
+          "createdAt": {
+            "type": "string",
             "description": "Generalized date of creation",
             "example": "2022-10-02T10:37:55.965Z"
           },
-          "updatedAt":{
-            "type":"string",
+          "updatedAt": {
+            "type": "string",
             "description": "Generalized date of updating",
             "example": "2022-10-02T10:37:55.965Z"
           }

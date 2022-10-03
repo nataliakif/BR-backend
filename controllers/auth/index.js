@@ -5,7 +5,7 @@ const googleAuth = require("./googleAuth");
 const googleRedirect = require("./googleRedirect");
 const restorePassword = require("./restorePassword");
 // const managePages = require("./managePages/");
-const refreshTokens = require("./refreshTokens");
+const refreshTokens = require("./refresh");
 const getUserInfo = require("./getUserInfo");
 
 module.exports = {
