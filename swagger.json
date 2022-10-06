@@ -131,17 +131,17 @@
         }
       }
     },
-    "/auth/restorePasswort": {
+    "/auth/restorePassword": {
       "post": {
         "tags": ["Auth"],
-        "summary": "Restore passwort user's",
+        "summary": "Restore password user's",
         "requestBody": {
-          "description": "Restore passwort object",
+          "description": "Restore password object",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RestorePasswortRequest"
+                "$ref": "#/components/schemas/RestorePasswordRequest"
               }
             }
           }
@@ -169,7 +169,7 @@
       }
     },
     "/auth/refresh": {
-      "get": {
+      "post": {
         "tags": ["Auth"],
         "summary": "Refresh user token",
         "requestBody": {
@@ -687,7 +687,7 @@
           }
         }
       },
-      "RestorePasswortRequest": {
+      "RestorePasswordRequest": {
         "type": "object",
         "required": ["email"],
         "properties": {
