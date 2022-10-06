@@ -1,15 +1,31 @@
-const express = require('express');
-const { books: ctrl } = require('../../controllers');
-const { validationBody, ctrlWrapper, authenticate } = require("../../middlewares");
+const express = require("express");
+const { books: ctrl } = require("../../controllers");
+const {
+  validationBody,
+  ctrlWrapper,
+  authenticate,
+  checkProtocol,
+} = require("../../middlewares");
 const { joiSchema } = require("../../models/book");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', authenticate, ctrlWrapper(ctrl.getAllBooks));
+router.get("/", checkProtocol, authenticate, ctrlWrapper(ctrl.getAllBooks));
 
-router.post('/', authenticate, validationBody(joiSchema), ctrlWrapper(ctrl.addBook));
+router.post(
+  "/",
+  checkProtocol,
+  authenticate,
+  validationBody(joiSchema),
+  ctrlWrapper(ctrl.addBook)
+);
 
-router.put('/:bookId', authenticate, validationBody(joiSchema), ctrlWrapper(ctrl.addBookReview));
-
+router.put(
+  "/:bookId",
+  checkProtocol,
+  authenticate,
+  validationBody(joiSchema),
+  ctrlWrapper(ctrl.addBookReview)
+);
 
 module.exports = router;
