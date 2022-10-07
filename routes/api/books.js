@@ -4,17 +4,15 @@ const {
   validationBody,
   ctrlWrapper,
   authenticate,
-  checkProtocol,
 } = require("../../middlewares");
 const { joiSchema } = require("../../models/book");
 
 const router = express.Router();
 
-router.get("/", checkProtocol, authenticate, ctrlWrapper(ctrl.getAllBooks));
+router.get("/", authenticate, ctrlWrapper(ctrl.getAllBooks));
 
 router.post(
   "/",
-  checkProtocol,
   authenticate,
   validationBody(joiSchema),
   ctrlWrapper(ctrl.addBook)
@@ -22,7 +20,6 @@ router.post(
 
 router.put(
   "/:bookId",
-  checkProtocol,
   authenticate,
   validationBody(joiSchema),
   ctrlWrapper(ctrl.addBookReview)
