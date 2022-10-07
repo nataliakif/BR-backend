@@ -2,8 +2,8 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { handleSchemaValidationErrors } = require("../helpers");
 
-const emailRegexp = /^[^ .-_/!?@]\S*.@\S*.\.\S*[^-\s]$/;
-const passwordRegexp = /^[^ .-_/!?@]\S*$/;
+const emailRegexp = /^[^-]\S*.@\S*.\.\S*[^-\s]$/;
+const passwordRegexp = /^[^.-]\S*$/;
 // Mongoose userSchema
 const userSchema = new Schema(
   {
