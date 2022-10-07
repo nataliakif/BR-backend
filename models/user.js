@@ -2,8 +2,8 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { handleSchemaValidationErrors } = require("../helpers");
 
-const emailRegexp =
-  /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z0-9_-]{2,6}$/;
+const emailRegexp = /^[^ .-_/!?@]\S*.@\S*.\.\S*[^-\s]$/;
+const passwordRegexp = /^[^ .-_/!?@]\S*$/;
 // Mongoose userSchema
 const userSchema = new Schema(
   {
@@ -35,7 +35,7 @@ userSchema.post("save", handleSchemaValidationErrors);
 const registerSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().pattern(emailRegexp).required(),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().pattern(passwordRegexp).min(6).required(),
   confirmPassword: Joi.string().required().valid(Joi.ref("password")),
   pagesRead: Joi.array().items(Joi.string()),
 });
