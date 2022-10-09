@@ -8,11 +8,17 @@ const getUserInfo = async (req, res) => {
   if (!user) {
     throw RequestError(404, `User with such ${_id} was not found`);
   }
+
+  const { email, name, token, refreshToken } = user;
+
   res.status(200).json({
     status: "success",
     code: 200,
     data: {
-      user,
+      name,
+      email,
+      token,
+      refreshToken,
     },
   });
 };
