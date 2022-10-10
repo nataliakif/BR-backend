@@ -754,23 +754,8 @@
       },
       "UserResponse": {
         "type": "object",
-        "required": [
-          "_id",
-          "name",
-          "email",
-          "password",
-          "token",
-          "refreshToken",
-          "verify",
-          "verificationToken",
-          "createdAt",
-          "updatedAt"
-        ],
+        "required": ["name", "email", "token", "refreshToken"],
         "properties": {
-          "_id": {
-            "type": "string",
-            "example": "6336b970ef6baff44ac39950"
-          },
           "name": {
             "type": "string",
             "example": "TEST MISHA"
@@ -779,10 +764,6 @@
             "type": "string",
             "example": "test1@gmail.com"
           },
-          "password": {
-            "type": "string",
-            "example": "$2a$10$oYGV2/Mczhr8zopmc65SZufZDAD9PPyi7KzZW0gMzHc/04kms9eLW"
-          },
           "token": {
             "type": "string",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzM2Yjk3MGVmNmJhZmY0NGFjMzk5NTAiLCJpYXQiOjE2NjQ2MTQ4NjksImV4cCI6MTY2NDYxODQ2OX0.C9GZaUFaYIGR4BgwMsu9Q86DHi--8V9dLROkrQuBUOM"
@@ -790,22 +771,6 @@
           "refreshToken": {
             "type": "string",
             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzM2Yjk3MGVmNmJhZmY0NGFjMzk5NTAiLCJpYXQiOjE2NjQ2MTQ4NjksImV4cCI6MTY2NDYxNzQ2MX0.Wz1ZdeHdzxN6X5KZhod6yYm6LrkwxfK0Z-MNbxEJBWE"
-          },
-          "verify": {
-            "type": "string",
-            "example": true
-          },
-          "verificationToken": {
-            "type": "string",
-            "example": ""
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2022-09-30T09:40:00.562Z"
-          },
-          "updatedAt": {
-            "type": "string",
-            "example": "2022-10-01T09:01:09.799Z"
           }
         }
       },
